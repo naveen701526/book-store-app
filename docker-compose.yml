@@ -10,6 +10,10 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      # Swagger Configuration
+      SPRINGDOC_SWAGGER_UI_PATH: /swagger-ui.html
+      SPRINGDOC_API_DOCS_PATH: /v3/api-docs
+      SPRINGDOC_SWAGGER_UI_ENABLED: "true"
 
   db:
     image: postgres:15
