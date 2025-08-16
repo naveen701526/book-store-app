@@ -2,12 +2,14 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Book;
 import com.example.demo.repository.BookRepository;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/books")
+@RequestMapping(value = "/books", produces = "application/json")
 public class BookController {
     private final BookRepository repo;
 
@@ -26,8 +28,10 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public Book getBook(@PathVariable Long id) {
-        return repo.findById(id).orElse(null);
+    public ResponseEntity<Book> getBook(@PathVariable Long id) {
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(repo.findById(id).orElse(null));
     }
 
     @PutMapping("/{id}")
