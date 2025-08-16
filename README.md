@@ -3,6 +3,15 @@
 A minimal Spring Boot CRUD API for books, backed by PostgreSQL, managed via pgAdmin, all containerized with Docker Compose.
 This README has everything you need in one place.
 
+## 🛠 Tech Stack
+
+- Spring Boot 3.5.4
+- Java 17
+- PostgreSQL 15
+- pgAdmin 4
+- Docker & Docker Compose
+- Swagger/OpenAPI for API documentation
+
 ## ✨ What you get
 
 - REST endpoints for basic CRUD on Book
@@ -17,7 +26,16 @@ This README has everything you need in one place.
 - Git
 - (Optional) cURL/Postman for testing
 
-## 🚀 Quick Start
+## � System Requirements
+
+- Memory: At least 4GB free RAM
+- Disk: At least 2GB free space
+- Ports: Make sure these ports are available
+  - 8080: Spring Boot application
+  - 5432: PostgreSQL
+  - 5050: pgAdmin
+
+## �🚀 Quick Start
 
 1) Clone the repo
 ```bash
@@ -97,6 +115,63 @@ docker compose up --build
 - DB/User/Pass: same as above
 
 ## 🌐 API Endpoints
+
+Available at http://localhost:8080/api/books
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET    | /api/books | List all books |
+| GET    | /api/books/{id} | Get a book by ID |
+| POST   | /api/books | Create a new book |
+| PUT    | /api/books/{id} | Update a book |
+| DELETE | /api/books/{id} | Delete a book |
+
+## 📖 API Documentation
+
+- Swagger UI: http://localhost:8080/swagger-ui/index.html
+- OpenAPI Spec: http://localhost:8080/v3/api-docs
+
+## 🔧 Troubleshooting
+
+1. **Container Startup Issues**
+   ```bash
+   # Stop all containers and remove volumes
+   docker compose down -v
+   # Remove all containers and images
+   docker system prune -a
+   # Start fresh
+   docker compose up --build
+   ```
+
+2. **Port Conflicts**
+   - If any service fails to start, check if the ports (8080, 5432, 5050) are already in use
+   - To kill a process using a port (on Unix/Mac):
+     ```bash
+     sudo lsof -i :8080  # Replace with the conflicting port
+     kill -9 <PID>
+     ```
+
+3. **Database Connection Issues**
+   - Ensure the .env file has correct database credentials
+   - Wait a few seconds after containers start for the database to initialize
+   - Check logs: `docker compose logs db`
+
+## 📝 Development Notes
+
+- The application uses Spring Boot's dev tools for hot reloading
+- Database changes require container rebuild: `docker compose up --build`
+- API changes are reflected immediately due to dev tools
+- Database data persists in a Docker volume named `db_data`
+
+## 🏗️ Project Structure
+```
+demo/
+├── src/                    # Source code
+├── db-init/               # Database initialization scripts
+├── docker-compose.yml     # Docker compose configuration
+├── Dockerfile             # Spring Boot app container config
+└── README.md             # This file
+```
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
